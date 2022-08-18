@@ -12,6 +12,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
+      - name: Run npm ci
+        run:  npm ci
       - name: Install newman
         run:  npm i newman -g
       - name: Install newman-reporter-htmlextra
