@@ -23,7 +23,7 @@ jobs:
       - name: Run reports
         uses: actions/upload-artifact@v2
         with:
-          name: RunRepor
+          name: RunReport
           path: pokemon_backend_testing/report
 
   slack-notifications:
