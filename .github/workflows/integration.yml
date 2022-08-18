@@ -1,0 +1,38 @@
+name: Pokemon API testing
+
+on:
+  [pull_request,push]
+
+jobs:
+
+  API-testing:
+    runs-on:  ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Install newman
+        run:  npm i newman -g
+      - name: Install newman-reporter-htmlextra
+        run:  npm i -g newman-reporter-htmlextra
+      - name:  Run POSTMAN collection
+        run:  npm run testAPI
+      - name: Run reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: RunReports
+          path: todoist_backend_testing/report
+
+  slack-notifications:
+    needs:  API-testing
+    runs-on:  ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: testing
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_TITLE: Build status
+          SLACK_MESSAGE: ':white_check_mark: Pokemon API build status: Success'
