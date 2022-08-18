@@ -1,0 +1,23 @@
+{
+  "name": "pokemon-api-testing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pokemonAPI": "npx newman run ./pokemon_backend_testing/collection/pokemonAPI.postman_collection.json -e ./pokemon_backend_testing/envVariables/pokemonAPI.postman_environment.json -r htmlextra --reporter-htmlextra-export ./pokemon_backend_testing/report/pokemon_backend_report.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cgalvez0/pokemon-API-testing.git"
+  },
+  "keywords": [],
+  "author": "cgalvez0",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cgalvez0/pokemon-API-testing/issues"
+  },
+  "homepage": "https://github.com/cgalvez0/pokemon-API-testing#readme",
+  "dependencies": {
+    "newman-reporter-htmlextra": "^1.22.10"
+  }
+}
