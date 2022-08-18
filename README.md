@@ -55,7 +55,7 @@ Now you are ready to have fun.
 
 In the root of the project, run in the terminal:
 ```
-npm run testAPI
+npm run pokemonAPI
 ```
 This command will initialize all the API tests requested, and will create a pokemon_backend_report.html in the report folder, inside the pokemon_backend_testing folder. To visualize the report just open the html file on chrome and enjoy!
 
