@@ -1,0 +1,317 @@
+{
+	"info": {
+		"_postman_id": "b4e48551-86d4-4c94-8383-2acd28116175",
+		"name": "pokemonAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14870073"
+	},
+	"item": [
+		{
+			"name": "Get moves from my favorite pokemon",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"//Body contains pokemon moves",
+							"pm.test(\"Body contains pokemon moves\",() => {",
+							"  pm.expect(pm.response.text()).to.include(\"moves\");",
+							"});",
+							"",
+							"//Json Schema Validation",
+							"var jsonData = pm.response.json();",
+							"var schema = {",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"moves\": {",
+							"      \"type\": \"array\",",
+							"      \"items\": [",
+							"        {",
+							"          \"type\": \"object\",",
+							"          \"properties\": {",
+							"            \"move\": {",
+							"              \"type\": \"object\",",
+							"              \"properties\": {",
+							"                \"name\": {\"type\": \"string\"},",
+							"                \"url\": {\"type\": \"string\"}",
+							"              }",
+							"            },",
+							"            \"version_group_details\": {",
+							"              \"type\": \"array\",",
+							"              \"items\": [",
+							"                {",
+							"                  \"type\": \"object\",",
+							"                  \"properties\": {",
+							"                    \"level_learned_at\": {\"type\": \"integer\"},",
+							"                    \"move_learn_method\": {",
+							"                      \"type\": \"object\",",
+							"                      \"properties\": {",
+							"                        \"name\": {\"type\": \"string\"},",
+							"                        \"url\": {\"type\": \"string\"}",
+							"                      }",
+							"                    },",
+							"                    \"version_group\": {",
+							"                        \"type\": \"object\",",
+							"                        \"properties\": {",
+							"                            \"name\": {\"type\": \"string\"},",
+							"                            \"url\": {\"type\": \"string\"}",
+							"                        }",
+							"                    },",
+							"                  }",
+							"                }",
+							"              ]",
+							"            }",
+							"          }",
+							"        }",
+							"      ]",
+							"    }",
+							"  }",
+							"};",
+							"",
+							"pm.test('Response Json schema is correct', function(){ ",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;  ",
+							"});",
+							"",
+							"pm.test(\"Validate schema\", () =>{",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/pokemon/{{pokemonName}}/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"pokemon",
+						"{{pokemonName}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get first move",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"//Set moveName and moveURL as environment variables",
+							"var jsonData = pm.response.json().moves[0];",
+							"pm.environment.set(\"moveName\", jsonData.move.name);",
+							"pm.environment.set(\"moveURL\", jsonData.move.url);",
+							"",
+							"//Json Schema Validation",
+							"var jsonData = pm.response.json();",
+							"var schema = {",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"moves\": {",
+							"      \"type\": \"array\",",
+							"      \"items\": [",
+							"        {",
+							"          \"type\": \"object\",",
+							"          \"properties\": {",
+							"            \"move\": {",
+							"              \"type\": \"object\",",
+							"              \"properties\": {",
+							"                \"name\": {\"type\": \"string\"},",
+							"                \"url\": {\"type\": \"string\"}",
+							"              }",
+							"            },",
+							"            \"version_group_details\": {",
+							"              \"type\": \"array\",",
+							"              \"items\": [",
+							"                {",
+							"                  \"type\": \"object\",",
+							"                  \"properties\": {",
+							"                    \"level_learned_at\": {\"type\": \"integer\"},",
+							"                    \"move_learn_method\": {",
+							"                      \"type\": \"object\",",
+							"                      \"properties\": {",
+							"                        \"name\": {\"type\": \"string\"},",
+							"                        \"url\": {\"type\": \"string\"}",
+							"                      }",
+							"                    },",
+							"                    \"version_group\": {",
+							"                        \"type\": \"object\",",
+							"                        \"properties\": {",
+							"                            \"name\": {\"type\": \"string\"},",
+							"                            \"url\": {\"type\": \"string\"}",
+							"                        }",
+							"                    },",
+							"                  }",
+							"                }",
+							"              ]",
+							"            }",
+							"          }",
+							"        }",
+							"      ]",
+							"    }",
+							"  }",
+							"};",
+							"",
+							"pm.test('Response Json schema is correct', function(){ ",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;  ",
+							"});",
+							"",
+							"pm.test(\"Validate schema\", () =>{",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/pokemon/{{pokemonName}}/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"pokemon",
+						"{{pokemonName}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate pokemon and move name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"//Validate my pokemon can learn a move",
+							"var jsonData = pm.response.json().learned_by_pokemon;",
+							"var pokemonName = pm.environment.get(\"pokemonName\");",
+							"var moveName = pm.environment.get(\"moveName\");",
+							"pm.test(pokemonName+\" can learn \"+moveName, function () {",
+							"    var foundIt = false;",
+							"    for(i=0;i<jsonData.length;i++){",
+							"        if(jsonData[i].name == pokemonName){",
+							"            foundIt = true;",
+							"        }",
+							"    }",
+							"    pm.expect(foundIt).to.be.true;",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/move/{{moveName}}/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"move",
+						"{{moveName}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate pokemon and URL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"//Validate my pokemon can learn a move",
+							"var jsonData = pm.response.json().learned_by_pokemon;",
+							"var pokemonName = pm.environment.get(\"pokemonName\");",
+							"var moveName = pm.environment.get(\"moveName\");",
+							"pm.test(pokemonName+\" can learn \"+moveName, function () {",
+							"    var foundIt = false;",
+							"    for(i=0;i<jsonData.length;i++){",
+							"        if(jsonData[i].name == pokemonName){",
+							"            foundIt = true;",
+							"        }",
+							"    }",
+							"    pm.expect(foundIt).to.be.true;",
+							"});",
+							"",
+							"//Dropping environment variables",
+							"pm.environment.unset(\"moveName\");",
+							"pm.environment.unset(\"moveURL\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{moveURL}}",
+					"host": [
+						"{{moveURL}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"//Response time validation",
+					"pm.test(\"Response time is less than 700ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(700);",
+					"});",
+					"",
+					"//Code validation",
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.be.have.status(200);",
+					"});",
+					""
+				]
+			}
+		}
+	]
+}
