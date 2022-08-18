@@ -38,7 +38,7 @@ The purpose of this challenge is aimed to make the mentee to experiment a role p
 
 Clone this repository.
 ```
-git clone https://github.com/wizeline/qa-buddy-program-cinthia-galvez
+git clone https://github.com/cgalvez0/pokemon-API-testing.git
 ```
 Go to the repository folder and once inside open a new terminal and type:
 ```
