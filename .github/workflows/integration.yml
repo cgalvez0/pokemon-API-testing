@@ -17,12 +17,12 @@ jobs:
       - name: Install newman-reporter-htmlextra
         run:  npm i -g newman-reporter-htmlextra
       - name:  Run POSTMAN collection
-        run:  npm run testAPI
+        run:  npm run pokemonAPI
       - name: Run reports
         uses: actions/upload-artifact@v2
         with:
-          name: RunReports
-          path: todoist_backend_testing/report
+          name: RunRepor
+          path: pokemon_backend_testing/report
 
   slack-notifications:
     needs:  API-testing
